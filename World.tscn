@@ -1,0 +1,386 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://digital-7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://f1 tings.jpg" type="Texture" id=2]
+[ext_resource path="res://light.png" type="Texture" id=3]
+[ext_resource path="res://World.gd" type="Script" id=4]
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 18, 6 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.360544, 0.707483, 1 )
+colors = PoolColorArray( 0.996094, 0.984421, 0.984421, 1, 0.90905, 0.694336, 0.925781, 1, 0.910156, 0.540405, 0.904379, 1, 0.445439, 0.0150757, 0.964844, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_texture = SubResource( 4 )
+metallic_specular = 0.31
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( 9, 0, 3, -9, 0, 3, 9, 0, -3, -9, 0, -3 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 3, 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=8]
+
+[sub_resource type="CubeMesh" id=9]
+material = SubResource( 8 )
+size = Vector3( 6, 1, 1 )
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 6, 1, 0.05 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.117647, 0.556863, 0.847059, 1 )
+roughness = 0.0
+
+[sub_resource type="CubeMesh" id=13]
+material = SubResource( 12 )
+size = Vector3( 0.2, 0.05, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=14]
+points = PoolVector3Array( -0.1, 0.025, 0.05, 0.1, 0.025, -0.05, 0.1, 0.025, 0.05, -0.1, 0.025, -0.05, -0.1, -0.025, 0.05, 0.1, -0.025, -0.05, 0.1, -0.025, 0.05, -0.1, -0.025, -0.05, 0.1, 0.025, 0.05, -0.1, 0.025, -0.05, 0.1, 0.025, -0.05, -0.1, 0.025, 0.05, 0.1, -0.025, 0.05, -0.1, -0.025, -0.05, 0.1, -0.025, -0.05, -0.1, -0.025, 0.05, 0.1, 0.025, 0.05, -0.1, -0.025, 0.05, -0.1, 0.025, 0.05, 0.1, -0.025, 0.05, 0.1, 0.025, -0.05, -0.1, -0.025, -0.05, -0.1, 0.025, -0.05, 0.1, -0.025, -0.05 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 27
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=16]
+tracks/0/type = "value"
+tracks/0/path = NodePath("TheBoxInWhichTheButtonIsIn:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 302, 93 ), Vector2( 12, 20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TheBoxInWhichTheButtonIsIn:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 361, 253.5 ), Vector2( 506, 290 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TheBoxInWhichTheButtonIsIn/CenterContainer/BeginButton:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TheBoxInWhichTheButtonIsIn/CenterContainer/BeginButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="World" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0 )
+physics_material_override = SubResource( 1 )
+
+[node name="Ground" type="MeshInstance" parent="Ground"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+shape = SubResource( 6 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 3.7645, 0.795082, -0.0211859 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 7 )
+
+[node name="Track" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="Divider" type="MeshInstance" parent="StaticBody/Track"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.069916, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Divider2" type="MeshInstance" parent="StaticBody/Track"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0.5 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Divider3" type="MeshInstance" parent="StaticBody/Track"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, -0.5 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="FinishingLine" type="Area" parent="StaticBody/Track"]
+transform = Transform( 0.99986, 0, -0.0167544, 0, 1, 0, 0.0167544, 0, 0.99986, -2.67919, 0.5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody/Track/FinishingLine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.162813, 0, 0.00272821 )
+shape = SubResource( 11 )
+
+[node name="Car" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79389, 0.5245, 0.260811 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Car"]
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Car"]
+shape = SubResource( 14 )
+
+[node name="Car2" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79389, 0.5245, -0.27011 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Car2"]
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Car2"]
+shape = SubResource( 14 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.297, 3.769, 0 )
+light_color = Color( 0.0313726, 0.988235, 0.807843, 1 )
+
+[node name="OmniLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.18938, 4.29326, 0.796681 )
+light_color = Color( 0.662745, 0, 1, 1 )
+light_energy = 1.86
+
+[node name="Panel" type="TextureRect" parent="."]
+margin_top = 2.0
+margin_right = 431.0
+margin_bottom = 207.0
+texture = ExtResource( 2 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReactionTime1" type="Label" parent="Panel"]
+margin_left = 78.0
+margin_top = 61.0
+margin_right = 134.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 15 )
+text = "0.000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReactionTime2" type="Label" parent="Panel"]
+margin_left = 306.0
+margin_top = 60.0
+margin_right = 362.0
+margin_bottom = 82.0
+custom_fonts/font = SubResource( 15 )
+text = "0.000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RaceTime1" type="Label" parent="Panel"]
+margin_left = 78.0
+margin_top = 108.0
+margin_right = 134.0
+margin_bottom = 130.0
+custom_fonts/font = SubResource( 15 )
+text = "0.000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RaceTime2" type="Label" parent="Panel"]
+margin_left = 306.0
+margin_top = 107.0
+margin_right = 362.0
+margin_bottom = 129.0
+custom_fonts/font = SubResource( 15 )
+text = "0.000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready1Lane1" type="TextureRect" parent="Panel"]
+margin_left = 186.0
+margin_top = 49.0
+margin_right = 213.0
+margin_bottom = 80.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready2Lane1" type="TextureRect" parent="Panel"]
+margin_left = 185.0
+margin_top = 81.0
+margin_right = 212.0
+margin_bottom = 112.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready3Lane1" type="TextureRect" parent="Panel"]
+margin_left = 185.0
+margin_top = 112.0
+margin_right = 212.0
+margin_bottom = 143.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoLane1" type="TextureRect" parent="Panel"]
+modulate = Color( 0.360784, 1, 0, 1 )
+margin_left = 184.0
+margin_top = 143.0
+margin_right = 211.0
+margin_bottom = 174.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FalseStartLane1" type="TextureRect" parent="Panel"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 184.0
+margin_top = 174.0
+margin_right = 211.0
+margin_bottom = 205.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FalseStartLane2" type="TextureRect" parent="Panel"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 228.0
+margin_top = 175.0
+margin_right = 255.0
+margin_bottom = 206.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoLane2" type="TextureRect" parent="Panel"]
+modulate = Color( 0.360784, 1, 0, 1 )
+margin_left = 230.0
+margin_top = 143.0
+margin_right = 257.0
+margin_bottom = 174.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready1Lane2" type="TextureRect" parent="Panel"]
+margin_left = 232.0
+margin_top = 49.0
+margin_right = 259.0
+margin_bottom = 80.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready2Lane2" type="TextureRect" parent="Panel"]
+margin_left = 231.0
+margin_top = 81.0
+margin_right = 258.0
+margin_bottom = 112.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready3Lane2" type="TextureRect" parent="Panel"]
+margin_left = 231.0
+margin_top = 112.0
+margin_right = 258.0
+margin_bottom = 143.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TheBoxInWhichTheButtonIsIn" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -151.0
+margin_top = -46.5
+margin_right = 151.0
+margin_bottom = 153.5
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 0.975669, 1.05304 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="TheBoxInWhichTheButtonIsIn"]
+margin_right = 302.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="BeginButton" type="Button" parent="TheBoxInWhichTheButtonIsIn/CenterContainer"]
+margin_left = 145.0
+margin_top = 90.0
+margin_right = 445.0
+margin_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 157.357, 43.5182 )
+text = "Begin"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BeginAnim = SubResource( 16 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="body_entered" from="StaticBody/Track/FinishingLine" to="." method="_on_FinishingLine_body_entered"]
+[connection signal="pressed" from="TheBoxInWhichTheButtonIsIn/CenterContainer/BeginButton" to="." method="_on_BeginButton_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
