@@ -14,19 +14,21 @@ export var time_scale = 1.0 setget set_timescale
 
 var racetime = 0.00
 var stage = -1
-var started = false
+var countdownstarted = false
+var racestarted = false
 var lane1pressed = false
 var lane2pressed = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	reset()
 	
 func reset():
 	$Timer.stop()
+	$TimerForWhenTheLightsGoOff.stop()
 	racetime = 0.00
 	stage = -1
-	started = false
+	countdownstarted = false
+	racestarted = false
 	lane1pressed = false
 	lane2pressed = false
 	for x in lane1:
@@ -47,16 +49,13 @@ func reset():
 func reset_cars():
 	car.transform = carOrigin
 	car2.transform = car2Origin
-	print("car")
-	print(car.transform)
-	print(car.translation)
 	car.linear_velocity = Vector3()
 	car2.linear_velocity = Vector3()
 	car.angular_velocity = Vector3()
 	car2.angular_velocity = Vector3()
 
 func _physics_process(delta):
-	if stage == 3:
+	if racestarted == true:
 		racetime = racetime + delta
 
 func set_timescale(x):
@@ -65,14 +64,14 @@ func set_timescale(x):
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if started == false:
+		if countdownstarted == false:
 			return
 		if event.scancode == KEY_R:
 			reset()
 			animPlay.play_backwards()
 			return
 		if event.scancode == KEY_ENTER:
-			if stage < 3:
+			if racestarted == false:
 				$Panel/FalseStartLane2.visible = true
 				$Timer.stop()
 				smoke2.emitting = true
@@ -85,7 +84,7 @@ func _input(event):
 				if not lane1pressed:
 					$CameraAnimation.play("Camera")
 		if event.scancode == KEY_SPACE:
-			if stage < 3:
+			if racestarted == false:
 				$Panel/FalseStartLane1.visible = true
 				$Timer.stop()
 				smoke1.emitting = true
@@ -103,7 +102,7 @@ func _input(event):
 
 func _on_BeginButton_pressed():
 	reset_cars()
-	started = true
+	countdownstarted = true
 	animPlay.current_animation = "BeginAnim"
 	animPlay.play()
 	$Timer.start()
@@ -119,6 +118,9 @@ func _on_Timer_timeout():
 		stage = stage + 1
 		lane1[stage].visible = true
 		lane2[stage].visible = true
+	else:
+		$TimerForWhenTheLightsGoOff.wait_time = rand_range(0,5)
+		$TimerForWhenTheLightsGoOff.start()
 
 
 func _on_FinishingLine_body_entered(body):
@@ -130,4 +132,12 @@ func _on_FinishingLine_body_entered(body):
 
 
 func _on_CameraAnimation_animation_finished(anim_name):
-	pass # Replace with function body.
+	pass
+
+
+func _on_TimerForWhenTheLightsGoOff_timeout():
+	racestarted = true
+	for x in lane1:
+		x.visible = false
+	for x in lane2:
+		x.visible = false

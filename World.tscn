@@ -63,28 +63,28 @@ size = Vector3( 0.2, 0.05, 0.1 )
 [sub_resource type="ConvexPolygonShape" id=17]
 points = PoolVector3Array( -0.1, 0.025, 0.05, 0.1, 0.025, -0.05, 0.1, 0.025, 0.05, -0.1, 0.025, -0.05, -0.1, -0.025, 0.05, 0.1, -0.025, -0.05, 0.1, -0.025, 0.05, -0.1, -0.025, -0.05, 0.1, 0.025, 0.05, -0.1, 0.025, -0.05, 0.1, 0.025, -0.05, -0.1, 0.025, 0.05, 0.1, -0.025, 0.05, -0.1, -0.025, -0.05, 0.1, -0.025, -0.05, -0.1, -0.025, 0.05, 0.1, 0.025, 0.05, -0.1, -0.025, 0.05, -0.1, 0.025, 0.05, 0.1, -0.025, 0.05, 0.1, 0.025, -0.05, -0.1, -0.025, -0.05, -0.1, 0.025, -0.05, 0.1, -0.025, -0.05 )
 
-[sub_resource type="SpatialMaterial" id=23]
+[sub_resource type="SpatialMaterial" id=18]
 flags_transparent = true
 albedo_color = Color( 0.196078, 0.196078, 0.196078, 0.505882 )
 
-[sub_resource type="CubeMesh" id=24]
+[sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
 
-[sub_resource type="Curve" id=25]
+[sub_resource type="Curve" id=20]
 _data = [ Vector2( 0.00574712, 0.967719 ), 0.0, 0.0, 0, 0, Vector2( 0.977011, 0.0313554 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="SpatialMaterial" id=18]
+[sub_resource type="SpatialMaterial" id=21]
 albedo_color = Color( 0.984314, 0.87451, 0.168627, 1 )
 
-[sub_resource type="CubeMesh" id=19]
-material = SubResource( 18 )
+[sub_resource type="CubeMesh" id=22]
+material = SubResource( 21 )
 size = Vector3( 0.2, 0.05, 0.1 )
 
-[sub_resource type="DynamicFont" id=20]
+[sub_resource type="DynamicFont" id=23]
 size = 27
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=24]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TheBoxInWhichTheButtonsAreIn:modulate")
 tracks/0/interp = 1
@@ -110,8 +110,8 @@ tracks/1/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=22]
-length = 0.5
+[sub_resource type="Animation" id=25]
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:translation")
 tracks/0/interp = 1
@@ -143,10 +143,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.5, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 1.0, 1.0, 0.1 ]
+"values": [ 1.0, 1.0, 0.05 ]
 }
 
 [node name="World" type="Spatial"]
@@ -213,10 +213,10 @@ material/0 = null
 shape = SubResource( 17 )
 
 [node name="Smoke" type="CPUParticles" parent="Car"]
-material_override = SubResource( 23 )
+material_override = SubResource( 18 )
 emitting = false
 amount = 20
-mesh = SubResource( 24 )
+mesh = SubResource( 19 )
 direction = Vector3( 0, 1, 0 )
 spread = 30.0
 gravity = Vector3( 0, 0, 0 )
@@ -224,24 +224,24 @@ initial_velocity = 0.3
 angular_velocity = 61.88
 angular_velocity_random = 0.78
 angle = 0.1
-scale_amount_curve = SubResource( 25 )
+scale_amount_curve = SubResource( 20 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="Car2" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79389, 0.5245, -0.27011 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Car2"]
-mesh = SubResource( 19 )
+mesh = SubResource( 22 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Car2"]
 shape = SubResource( 17 )
 
 [node name="Smoke" type="CPUParticles" parent="Car2"]
-material_override = SubResource( 23 )
+material_override = SubResource( 18 )
 emitting = false
 amount = 20
-mesh = SubResource( 24 )
+mesh = SubResource( 19 )
 direction = Vector3( 0, 1, 0 )
 spread = 30.0
 gravity = Vector3( 0, 0, 0 )
@@ -249,7 +249,7 @@ initial_velocity = 0.3
 angular_velocity = 61.88
 angular_velocity_random = 0.78
 angle = 0.1
-scale_amount_curve = SubResource( 25 )
+scale_amount_curve = SubResource( 20 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
@@ -276,7 +276,7 @@ margin_left = 78.0
 margin_top = 61.0
 margin_right = 134.0
 margin_bottom = 83.0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 23 )
 text = "0.000"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -287,7 +287,7 @@ margin_left = 306.0
 margin_top = 60.0
 margin_right = 362.0
 margin_bottom = 82.0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 23 )
 text = "0.000"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -298,7 +298,7 @@ margin_left = 78.0
 margin_top = 108.0
 margin_right = 134.0
 margin_bottom = 130.0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 23 )
 text = "0.000"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -309,7 +309,7 @@ margin_left = 306.0
 margin_top = 107.0
 margin_right = 362.0
 margin_bottom = 129.0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 23 )
 text = "0.000"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -346,7 +346,6 @@ __meta__ = {
 }
 
 [node name="GoLane1" type="TextureRect" parent="Panel"]
-modulate = Color( 0.360784, 1, 0, 1 )
 margin_left = 184.0
 margin_top = 143.0
 margin_right = 211.0
@@ -379,7 +378,6 @@ __meta__ = {
 }
 
 [node name="GoLane2" type="TextureRect" parent="Panel"]
-modulate = Color( 0.360784, 1, 0, 1 )
 margin_left = 230.0
 margin_top = 143.0
 margin_right = 257.0
@@ -460,16 +458,19 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/BeginAnim = SubResource( 21 )
+anims/BeginAnim = SubResource( 24 )
 
 [node name="CameraAnimation" type="AnimationPlayer" parent="."]
-anims/Camera = SubResource( 22 )
+anims/Camera = SubResource( 25 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="TimerForWhenTheLightsGoOff" type="Timer" parent="."]
 [connection signal="body_entered" from="StaticBody/Track/FinishingLine" to="." method="_on_FinishingLine_body_entered"]
 [connection signal="pressed" from="TheBoxInWhichTheButtonsAreIn/BeginButton" to="." method="_on_BeginButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="CameraAnimation" to="." method="_on_CameraAnimation_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="TimerForWhenTheLightsGoOff" to="." method="_on_TimerForWhenTheLightsGoOff_timeout"]
